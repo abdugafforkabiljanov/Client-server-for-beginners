@@ -26,7 +26,7 @@ public class Server2 {
                 threadPool.execute(clientManager);
             }
         } catch (IOException e) {
-            System.err.println("Serverda xatolik yuz berdi: " + e.getMessage());
+            System.out.println("Serverda xatolik yuz berdi: " + e.getMessage());
             closeServer();
         }
     }
