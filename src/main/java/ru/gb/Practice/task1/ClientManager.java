@@ -6,6 +6,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ClientManager implements Runnable {
     private static final CopyOnWriteArrayList<ClientManager> clients = new CopyOnWriteArrayList<>();
+    private static final String LOG_FILE = "informationHistory.txt";
+
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
@@ -24,7 +26,6 @@ public class ClientManager implements Runnable {
 
             clients.add(this);
             broadcastMessage(name + " chatga qo‘shildi!");
-
         } catch (IOException e) {
             closeEverything();
         }
@@ -38,6 +39,7 @@ public class ClientManager implements Runnable {
                 message = bufferedReader.readLine();
                 if (message != null) {
                     broadcastMessage(message);
+                    writeToFile(message);
                 }
             } catch (IOException e) {
                 closeEverything();
@@ -55,6 +57,15 @@ public class ClientManager implements Runnable {
             } catch (IOException e) {
                 client.closeEverything();
             }
+        }
+    }
+
+    private void writeToFile(String message) {
+        try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(LOG_FILE, true))) {
+            fileWriter.write(message);
+            fileWriter.newLine();
+        } catch (IOException e) {
+            System.err.println("Xatolik: Faylga yozib bo‘lmadi!");
         }
     }
 
