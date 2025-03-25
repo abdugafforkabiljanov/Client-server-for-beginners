@@ -23,7 +23,7 @@ public class Server2 {
                 System.out.println("Yangi mijoz ulandi!");
 
                 ClientManager clientManager = new ClientManager(socket);
-                threadPool.execute(clientManager); // Har bir client uchun Thread Pool dan foydalanish
+                threadPool.execute(clientManager);
             }
         } catch (IOException e) {
             System.err.println("Serverda xatolik yuz berdi: " + e.getMessage());
@@ -35,7 +35,7 @@ public class Server2 {
         try {
             if (!serverSocket.isClosed()) {
                 serverSocket.close();
-                threadPool.shutdown(); // Thread poolni yopamiz
+                threadPool.shutdown();
                 System.out.println("Server yopildi.");
             }
         } catch (IOException e) {
