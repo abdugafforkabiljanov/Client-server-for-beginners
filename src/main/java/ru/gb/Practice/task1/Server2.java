@@ -1,12 +1,13 @@
 package ru.gb.Practice.task1;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Server2 {
+    private static final String LOG_FILE = "informationHistory.txt";
     private final ServerSocket serverSocket;
     private final ExecutorService threadPool = Executors.newFixedThreadPool(10); // 10 ta foydalanuvchi uchun havuz
 
@@ -42,4 +43,6 @@ public class Server2 {
             System.err.println("Serverni yopishda xatolik: " + e.getMessage());
         }
     }
+
+
 }

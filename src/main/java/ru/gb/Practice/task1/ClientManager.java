@@ -36,6 +36,7 @@ public class ClientManager implements Runnable {
         String message;
         while (socket.isConnected()) {
             try {
+                readFromFile();
                 message = bufferedReader.readLine();
                 if (message != null) {
                     broadcastMessage(message);
@@ -79,6 +80,18 @@ public class ClientManager implements Runnable {
             if (socket != null) socket.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    public void readFromFile() {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(LOG_FILE))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                bufferedWriter.write(line);
+                bufferedWriter.newLine();
+                bufferedWriter.flush();
+            }
+        } catch (IOException e) {
+            System.out.println("ERROR READ FILE");
         }
     }
 }
